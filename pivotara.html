@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pivotara — Predictive Intelligence for Private Aviation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #070B12;
+    --bg-2: #0C1220;
+    --bg-3: #111827;
+    --bg-glass: rgba(255,255,255,0.03);
+    --border: rgba(255,255,255,0.07);
+    --border-bright: rgba(255,255,255,0.14);
+    --gold: #C9A84C;
+    --gold-dim: #8A6D2F;
+    --gold-glow: rgba(201,168,76,0.12);
+    --text: #EEE8DC;
+    --text-2: #8A8880;
+    --text-3: #4A4845;
+    --accent: #1B6CA8;
+    --accent-light: #4B9FD8;
+    --red: #C0392B;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Outfit', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(7,11,18,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-2);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--gold-dim);
+    color: var(--gold);
+    padding: 0.55rem 1.4rem;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover {
+    background: var(--gold-glow);
+    border-color: var(--gold);
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    padding: 8rem 4rem 6rem;
+    overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 80%);
+  }
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 900px;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.2rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 1.8rem;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-2);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+  .hero-cost {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: #C0392B;
+    background: rgba(192,57,43,0.08);
+    border: 1px solid rgba(192,57,43,0.2);
+    padding: 0.45rem 1rem;
+    margin-bottom: 2.8rem;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: #070B12;
+    padding: 0.85rem 2.2rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-2);
+    padding: 0.85rem 2.2rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid var(--border-bright);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { color: var(--text); border-color: var(--text-2); }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--bg-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 4rem;
+    display: flex; justify-content: center; gap: 0;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    flex: 1; min-width: 180px; max-width: 240px;
+    text-align: center;
+    padding: 0 2rem;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-2);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  /* SECTION SHARED */
+  section { padding: 7rem 4rem; }
+  .section-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-body {
+    font-size: 1rem;
+    color: var(--text-2);
+    max-width: 560px;
+    line-height: 1.85;
+    margin-bottom: 3rem;
+  }
+  .max-w { max-width: 1200px; margin: 0 auto; }
+
+  /* PROBLEM SECTION */
+  #problem { background: var(--bg); }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    margin-top: 4rem;
+    border: 1px solid var(--border);
+  }
+  .problem-card {
+    background: var(--bg);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .problem-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold-dim);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .problem-card:hover::before { opacity: 1; }
+  .problem-icon {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: var(--red);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .problem-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+  .problem-card p {
+    font-size: 0.9rem;
+    color: var(--text-2);
+    line-height: 1.8;
+  }
+  .problem-stat {
+    margin-top: 1.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--red);
+    letter-spacing: 0.08em;
+    padding: 0.4rem 0.8rem;
+    background: rgba(192,57,43,0.06);
+    border: 1px solid rgba(192,57,43,0.15);
+    display: inline-block;
+  }
+
+  /* PRODUCT / MODULES */
+  #product { background: var(--bg-2); }
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .module-card {
+    background: var(--bg-glass);
+    border: 1px solid var(--border);
+    padding: 2.2rem;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .module-card:hover { border-color: var(--gold-dim); }
+  .module-num {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-3);
+    letter-spacing: 0.2em;
+    margin-bottom: 1.2rem;
+  }
+  .module-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.7rem;
+  }
+  .module-card p {
+    font-size: 0.88rem;
+    color: var(--text-2);
+    line-height: 1.8;
+  }
+  .module-tag {
+    margin-top: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .module-tag::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--gold-dim);
+  }
+
+  /* HOW IT WORKS */
+  #how { background: var(--bg); }
+  .steps {
+    margin-top: 4rem;
+    position: relative;
+  }
+  .step {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    align-items: start;
+  }
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--text-3);
+    line-height: 1;
+    text-align: center;
+  }
+  .step-content h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .step-content p {
+    font-size: 0.9rem;
+    color: var(--text-2);
+    line-height: 1.85;
+    max-width: 520px;
+  }
+  .step-divider {
+    width: 1px; height: 2.5rem;
+    background: var(--border-bright);
+    margin-left: 29px; margin-bottom: 1rem;
+  }
+
+  /* DASHBOARD MOCKUP */
+  .dashboard-frame {
+    margin-top: 4rem;
+    border: 1px solid var(--border);
+    background: var(--bg-2);
+    overflow: hidden;
+  }
+  .dash-bar {
+    background: var(--bg-3);
+    border-bottom: 1px solid var(--border);
+    padding: 0.8rem 1.5rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .dash-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dash-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-3);
+    margin-left: auto;
+    letter-spacing: 0.1em;
+  }
+  .dash-body {
+    display: grid;
+    grid-template-columns: 200px 1fr 220px;
+    min-height: 340px;
+  }
+  .dash-sidebar {
+    border-right: 1px solid var(--border);
+    padding: 1.5rem 1rem;
+  }
+  .dash-nav-item {
+    font-size: 0.78rem;
+    color: var(--text-2);
+    padding: 0.55rem 0.8rem;
+    margin-bottom: 0.25rem;
+    font-family: var(--font-body);
+    border-radius: 2px;
+    cursor: default;
+    letter-spacing: 0.03em;
+  }
+  .dash-nav-item.active {
+    background: var(--gold-glow);
+    color: var(--gold);
+    border-left: 2px solid var(--gold);
+  }
+  .dash-main { padding: 1.5rem 1.8rem; }
+  .dash-kpi-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .dash-kpi {
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    padding: 1rem;
+  }
+  .dash-kpi-val {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1;
+  }
+  .dash-kpi-label {
+    font-size: 0.68rem;
+    color: var(--text-3);
+    margin-top: 0.3rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+  }
+  .dash-kpi-delta {
+    font-size: 0.7rem;
+    margin-top: 0.2rem;
+    font-family: var(--font-mono);
+  }
+  .delta-up { color: #27AE60; }
+  .delta-down { color: var(--red); }
+  .dash-chart-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-3);
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .chart-bars {
+    display: flex; align-items: flex-end; gap: 6px; height: 90px;
+  }
+  .bar {
+    flex: 1;
+    background: var(--border-bright);
+    min-width: 8px;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .bar.highlight { background: var(--gold-dim); }
+  .bar.projected { background: rgba(201,168,76,0.25); border: 1px dashed var(--gold-dim); }
+  .dash-right {
+    border-left: 1px solid var(--border);
+    padding: 1.5rem 1rem;
+  }
+  .alert-item {
+    border-left: 2px solid;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 0.7rem;
+    background: rgba(255,255,255,0.02);
+  }
+  .alert-item.warn { border-color: #E67E22; }
+  .alert-item.ok { border-color: #27AE60; }
+  .alert-item.crit { border-color: var(--red); }
+  .alert-title {
+    font-size: 0.73rem;
+    color: var(--text);
+    font-weight: 400;
+    margin-bottom: 0.15rem;
+  }
+  .alert-sub {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-3);
+  }
+
+  /* FOUNDER */
+  #founder { background: var(--bg-2); }
+  .founder-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 6rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+  .founder-portrait {
+    aspect-ratio: 3/4;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .founder-initials {
+    font-family: var(--font-display);
+    font-size: 6rem;
+    font-weight: 300;
+    color: var(--gold-dim);
+    letter-spacing: 0.05em;
+  }
+  .founder-portrait-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(7,11,18,0.85);
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .founder-name-card {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--text);
+  }
+  .founder-role-card {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+  .founder-quote {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 2rem;
+    border-left: 2px solid var(--gold-dim);
+    padding-left: 1.8rem;
+  }
+  .founder-bio {
+    font-size: 0.92rem;
+    color: var(--text-2);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+  .founder-tags {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--border-bright);
+    color: var(--text-2);
+    text-transform: uppercase;
+  }
+
+  /* CTA */
+  #cta {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 8rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-glow {
+    position: absolute;
+    width: 600px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+  }
+  .cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+  #cta .section-title { margin: 0 auto 1.5rem; text-align: center; }
+  #cta .section-body { margin: 0 auto 3rem; text-align: center; }
+  .cta-form {
+    display: flex; gap: 0; max-width: 480px; margin: 0 auto;
+    border: 1px solid var(--border-bright);
+  }
+  .cta-input {
+    flex: 1;
+    background: transparent;
+    border: none; outline: none;
+    padding: 0.9rem 1.2rem;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--text);
+    font-weight: 300;
+  }
+  .cta-input::placeholder { color: var(--text-3); }
+  .cta-submit {
+    background: var(--gold);
+    border: none;
+    padding: 0.9rem 1.6rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #070B12;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .cta-submit:hover { opacity: 0.85; }
+  .cta-note {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-3);
+    margin-top: 1rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg-2);
+    border-top: 1px solid var(--border);
+    padding: 3rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--text-2);
+  }
+  .footer-logo span { color: var(--gold); }
+  .footer-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .footer-links a {
+    font-size: 0.78rem;
+    color: var(--text-3);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--text-2); }
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-3);
+    letter-spacing: 0.08em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    animation: fadeUp 0.8s ease forwards;
+  }
+  .fade-up-2 { animation-delay: 0.15s; opacity: 0; animation: fadeUp 0.8s 0.15s ease forwards; }
+  .fade-up-3 { animation-delay: 0.3s; opacity: 0; animation: fadeUp 0.8s 0.3s ease forwards; }
+  .fade-up-4 { animation-delay: 0.45s; opacity: 0; animation: fadeUp 0.8s 0.45s ease forwards; }
+  .fade-up-5 { animation-delay: 0.6s; opacity: 0; animation: fadeUp 0.8s 0.6s ease forwards; }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .stats-bar { padding: 2rem 1.5rem; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .modules-grid { grid-template-columns: 1fr; }
+    .dash-body { grid-template-columns: 1fr; }
+    .dash-sidebar { display: none; }
+    .dash-right { display: none; }
+    .founder-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .founder-portrait { max-width: 300px; }
+    footer { flex-direction: column; padding: 2rem 1.5rem; }
+    .hero-title { font-size: 3rem; }
+    #hero { padding: 7rem 1.5rem 4rem; }
+    .cta-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Pivot<span>ara</span></a>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#product">Platform</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#founder">Founder</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Request Access</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow fade-up">Private Aviation Intelligence Platform</p>
+    <h1 class="hero-title fade-up-2">
+      Every grounded jet is<br><em>a $30,000 failure.</em>
+    </h1>
+    <p class="hero-subtitle fade-up-3">
+      Pivotara brings predictive intelligence to charter operators — optimising empty-leg pricing, preventing AOG incidents, and forecasting costs before they become crises.
+    </p>
+    <div class="fade-up-4">
+      <div class="hero-cost">⚠ Average AOG event cost: $30,000 / day in lost charter revenue</div>
+    </div>
+    <div class="hero-btns fade-up-5">
+      <a href="#cta" class="btn-primary">Request Early Access</a>
+      <a href="#product" class="btn-ghost">See the Platform</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item reveal">
+    <div class="stat-num">35%</div>
+    <div class="stat-label">Of charter flights are empty legs</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">$30K</div>
+    <div class="stat-label">Daily cost per grounded aircraft</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">72hr</div>
+    <div class="stat-label">Avg. maintenance delay window</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-num">$40B+</div>
+    <div class="stat-label">Private aviation market by 2030</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="max-w">
+    <p class="section-eyebrow reveal">The Problem</p>
+    <h2 class="section-title reveal">Charter operators fly <em>blind.</em></h2>
+    <p class="section-body reveal">
+      Private aviation is an asset-heavy, margin-thin business. Operators manage complex multi-aircraft fleets with scheduling tools built for the past decade — and no predictive layer. The result is revenue left on the runway.
+    </p>
+    <div class="problem-grid reveal">
+      <div class="problem-card">
+        <div class="problem-icon">↗ Revenue Loss</div>
+        <h3>Empty Legs Sold at a Loss</h3>
+        <p>Repositioning flights go unsold or are priced by gut feel — operators lack dynamic demand signals to capture marginal revenue from otherwise dead miles.</p>
+        <div class="problem-stat">~35% of all private jet flights carry zero passengers</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">⚙ Operations Risk</div>
+        <h3>Reactive Maintenance Cycles</h3>
+        <p>Scheduled maintenance is static. AOG (Aircraft on Ground) incidents hit without warning, triggering charter cancellations, passenger compensation, and crew disruption cascades.</p>
+        <div class="problem-stat">Average AOG downtime: 3–5 days per incident</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">✓ Compliance Burden</div>
+        <h3>Manual Safety Compliance</h3>
+        <p>Passenger safety records, crew certification tracking, and regulatory audits are managed across spreadsheets and email chains — prone to gaps that risk AOC violations.</p>
+        <div class="problem-stat">FAR Part 135 violations carry $25,000+ penalties</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">⛽ Cost Volatility</div>
+        <h3>Fuel Costs Caught Operators Off-Guard</h3>
+        <p>Jet-A pricing swings with geopolitics and demand cycles. Operators price long-horizon charters without a fuel cost model, eroding margins on trips booked months out.</p>
+        <div class="problem-stat">Fuel = 30–40% of total charter operating cost</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT -->
+<section id="product">
+  <div class="max-w">
+    <p class="section-eyebrow reveal">The Platform</p>
+    <h2 class="section-title reveal">Predictive intelligence across <em>every layer</em> of operations.</h2>
+    <p class="section-body reveal">
+      Pivotara sits above your existing scheduling and dispatch stack — ingesting flight data, maintenance logs, fuel prices, and passenger records to surface decisions before they become urgent.
+    </p>
+    <div class="modules-grid">
+      <div class="module-card reveal">
+        <div class="module-num">MODULE 01</div>
+        <h3>Empty Leg Pricing Engine</h3>
+        <p>Dynamic pricing recommendations powered by real-time demand signals, route density analysis, weather routing, and competitor inventory. Sell repositioning flights at market-optimal prices — not guesses.</p>
+        <div class="module-tag">Revenue Optimisation</div>
+      </div>
+      <div class="module-card reveal">
+        <div class="module-num">MODULE 02</div>
+        <h3>Predictive Maintenance Scheduler</h3>
+        <p>Component-level health scoring derived from flight cycle data, manufacturer thresholds, and historical failure patterns. Know when a part will fail before it grounds your aircraft.</p>
+        <div class="module-tag">AOG Prevention</div>
+      </div>
+      <div class="module-card reveal">
+        <div class="module-num">MODULE 03</div>
+        <h3>Passenger Safety & Compliance Hub</h3>
+        <p>Centralised tracking for crew certifications, passenger manifests, safety briefing records, and regulatory audit trails. Automated alerts 30/60/90 days before expiry. Audit-ready at all times.</p>
+        <div class="module-tag">Regulatory Compliance</div>
+      </div>
+      <div class="module-card reveal">
+        <div class="module-num">MODULE 04</div>
+        <h3>Fuel Cost Forecasting</h3>
+        <p>Multi-horizon fuel price models combining forward curves, airport-level FBO pricing variability, tankering analysis, and route optimisation to protect margins on future charter commitments.</p>
+        <div class="module-tag">Cost Intelligence</div>
+      </div>
+    </div>
+
+    <!-- DASHBOARD MOCKUP -->
+    <div class="dashboard-frame reveal" style="margin-top: 5rem;">
+      <div class="dash-bar">
+        <div class="dash-dot" style="background:#C0392B;"></div>
+        <div class="dash-dot" style="background:#E67E22;"></div>
+        <div class="dash-dot" style="background:#27AE60;"></div>
+        <span class="dash-title">PIVOTARA OPERATIONS DASHBOARD — Fleet View</span>
+      </div>
+      <div class="dash-body">
+        <div class="dash-sidebar">
+          <div class="dash-nav-item active">📊 Fleet Overview</div>
+          <div class="dash-nav-item">✈ Empty Legs</div>
+          <div class="dash-nav-item">⚙ Maintenance</div>
+          <div class="dash-nav-item">✓ Compliance</div>
+          <div class="dash-nav-item">⛽ Fuel Forecast</div>
+          <div class="dash-nav-item" style="margin-top: 2rem;">⚙ Settings</div>
+        </div>
+        <div class="dash-main">
+          <div class="dash-kpi-row">
+            <div class="dash-kpi">
+              <div class="dash-kpi-val">7</div>
+              <div class="dash-kpi-label">Active Aircraft</div>
+              <div class="dash-kpi-delta delta-up">↑ 1 from last week</div>
+            </div>
+            <div class="dash-kpi">
+              <div class="dash-kpi-val">$148K</div>
+              <div class="dash-kpi-label">Empty Leg Revenue</div>
+              <div class="dash-kpi-delta delta-up">↑ 23% vs last month</div>
+            </div>
+            <div class="dash-kpi">
+              <div class="dash-kpi-val">2</div>
+              <div class="dash-kpi-label">Maintenance Alerts</div>
+              <div class="dash-kpi-delta delta-down">↑ Review required</div>
+            </div>
+          </div>
+          <div class="dash-chart-label">Projected fuel cost / flight hour — next 90 days</div>
+          <div class="chart-bars">
+            <div class="bar" style="height:45%;"></div>
+            <div class="bar" style="height:52%;"></div>
+            <div class="bar" style="height:48%;"></div>
+            <div class="bar highlight" style="height:61%;"></div>
+            <div class="bar" style="height:55%;"></div>
+            <div class="bar" style="height:58%;"></div>
+            <div class="bar highlight" style="height:70%;"></div>
+            <div class="bar projected" style="height:65%;"></div>
+            <div class="bar projected" style="height:68%;"></div>
+            <div class="bar projected" style="height:72%;"></div>
+            <div class="bar projected" style="height:75%;"></div>
+            <div class="bar projected" style="height:69%;"></div>
+          </div>
+          <div style="margin-top:0.6rem; display:flex; gap:1.2rem;">
+            <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-3); display:flex; align-items:center; gap:0.4rem;"><span style="width:10px;height:2px;background:var(--gold-dim);display:inline-block;"></span>Actual</span>
+            <span style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text-3); display:flex; align-items:center; gap:0.4rem;"><span style="width:10px;height:2px;border-top:1px dashed var(--gold-dim);display:inline-block;"></span>Forecast</span>
+          </div>
+        </div>
+        <div class="dash-right">
+          <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text-3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">Live Alerts</div>
+          <div class="alert-item crit">
+            <div class="alert-title">N452PJ — APU due for inspection</div>
+            <div class="alert-sub">Overdue by 18 flight cycles</div>
+          </div>
+          <div class="alert-item warn">
+            <div class="alert-title">Capt. Mehta cert. expires in 22 days</div>
+            <div class="alert-sub">Type rating renewal required</div>
+          </div>
+          <div class="alert-item ok">
+            <div class="alert-title">Empty leg: LAX→MIA sold</div>
+            <div class="alert-sub">+$26,400 captured — optimised pricing</div>
+          </div>
+          <div class="alert-item warn">
+            <div class="alert-title">Jet-A spike forecast: +12%</div>
+            <div class="alert-sub">KDAL, KHOU — Week of Jul 14</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="max-w" style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;">
+    <div>
+      <p class="section-eyebrow reveal">How It Works</p>
+      <h2 class="section-title reveal">Integrate once.<br><em>Operate smarter</em> forever.</h2>
+      <p class="section-body reveal">
+        Pivotara connects to your existing FBO software, MRO system, and scheduling tools via API — no rip-and-replace required. Your team gets a unified intelligence layer on top of what already works.
+      </p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Connect Your Data Sources</h3>
+          <p>Pivotara integrates with scheduling platforms (Leon, FOS, AVIOBOOK), MRO systems, and fuel card providers. Setup takes under 48 hours with dedicated onboarding support.</p>
+        </div>
+      </div>
+      <div class="step-divider reveal"></div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Models Learn Your Fleet</h3>
+          <p>Our ML models train on your fleet's historical maintenance patterns, route demand, and operational context — personalised intelligence, not generic benchmarks.</p>
+        </div>
+      </div>
+      <div class="step-divider reveal"></div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Decisions Surfaced in Real Time</h3>
+          <p>Pricing recommendations, maintenance windows, compliance alerts, and fuel forecasts are delivered through your dashboard, API webhooks, or direct integrations with your dispatch workflow.</p>
+        </div>
+      </div>
+      <div class="step-divider reveal"></div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h3>Measure the Delta</h3>
+          <p>Revenue uplift from empty-leg optimisation, AOG events prevented, compliance violations avoided — tracked, attributed, and reported monthly for your operational review.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder">
+  <div class="max-w">
+    <p class="section-eyebrow reveal">The Founder</p>
+    <h2 class="section-title reveal">Built by someone who understands <em>operational risk.</em></h2>
+    <div class="founder-layout">
+      <div class="founder-portrait reveal">
+        <div class="founder-initials">AP</div>
+        <div class="founder-portrait-label">
+          <div class="founder-name-card">Aditya Pal</div>
+          <div class="founder-role-card">Founder & CEO, Pivotara</div>
+        </div>
+      </div>
+      <div class="reveal">
+        <blockquote class="founder-quote">
+          "Charter operators don't have a data problem — they have a decision problem. The data exists. No one has turned it into the right signal at the right time."
+        </blockquote>
+        <p class="founder-bio">
+          Aditya Pal founded Pivotara after identifying a systemic gap in how private aviation operators manage revenue and risk. With a background spanning aviation operations, data engineering, and B2B SaaS, he spent two years embedded with charter operators across the US and EMEA — mapping the exact failure modes that cause empty legs to go unsold, maintenance to become reactive, and compliance to slip through the cracks.
+        </p>
+        <p class="founder-bio">
+          The insight driving Pivotara is straightforward: the private aviation industry has abundant operational data locked in siloed systems — scheduling software, MRO logs, fuel receipts, flight manifests. Pivotara's purpose is to unlock that data and translate it into predictive decisions that operators can act on, before problems become costs.
+        </p>
+        <div class="founder-tags">
+          <span class="tag">Aviation Operations</span>
+          <span class="tag">Predictive Analytics</span>
+          <span class="tag">B2B SaaS</span>
+          <span class="tag">Fleet Intelligence</span>
+          <span class="tag">Charter Economics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <div class="cta-inner">
+    <p class="section-eyebrow reveal">Early Access</p>
+    <h2 class="section-title reveal">Join the first cohort of <em>operators who don't fly blind.</em></h2>
+    <p class="section-body reveal">
+      We're onboarding a limited set of charter operators for our closed beta. If your fleet loses revenue to empty legs or reactive maintenance, we want to talk.
+    </p>
+    <div class="reveal">
+      <div class="cta-form">
+        <input class="cta-input" type="email" placeholder="your@company.com" />
+        <button class="cta-submit">Request Access</button>
+      </div>
+      <p class="cta-note">No commitment. Onboarding in under 48 hours. Cancel anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Pivot<span>ara</span></div>
+  <ul class="footer-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#product">Platform</a></li>
+    <li><a href="#founder">Founder</a></li>
+    <li><a href="#cta">Contact</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Pivotara. All rights reserved.</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
